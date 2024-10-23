@@ -14,7 +14,7 @@ The **Auto Archive Script** automates the process of archiving old records from 
 
 The **Auto Archive Script** processes records from a designated master table, groups them by a specified time period (e.g., month or quarter), creates new Airtable bases to store archived records if needed, and updates the master table to mark the archived records.
 
-```js
+```javascript
 import { initializeBlock, useBase, useRecords, useCursor } from '@airtable/blocks/ui';
 
 // Configuration
@@ -71,7 +71,7 @@ The **Multi-Base Data Explorer** is an Airtable block extension that allows user
 
 The **Multi-Base Data Explorer** is a front-end interface built using Airtable Blocks SDK and React. It fetches records from multiple archive bases, merges them, and stores them in the browser’s IndexedDB for faster loading and reduced API calls.
 
-```js
+```javascript
 import {
     initializeBlock,
     useBase,
@@ -144,6 +144,66 @@ initializeBlock(() => <DataExplorer />);
   - Customize filtering and visualization parameters within the Data Explorer as needed.
 
 ---
+
+## Features
+
+### **Data Aggregation**: 
+Fetch and merge data from multiple Airtable bases and tables that share the same schema.
+
+### **Filtering**: 
+Apply various filters based on fields such as Year, Publication, and Status.
+
+### **Pagination**: 
+Navigate through large datasets with paginated views.
+
+### **Charts**: 
+Interactive charts to visualize data grouped and counted by fields like Year or Date.
+
+### **IndexedDB Caching**: 
+Cache Airtable data using IndexedDB for offline support and optimized performance.
+
+### **Table View**: 
+View records in a sortable, paginated table with links to the corresponding records in Airtable.
+
+### **Data Sync**: 
+Automatically refresh data based on a cache timeout or manual refresh triggers.
+
+---
+
+## Folder Structure
+
+```
+/src
+  /components
+    ChartComponent.js      # The chart component logic
+    DataTable.js           # The table for displaying records
+    Filters.js             # Components handling filters and UI controls
+    Pagination.js          # The pagination controls
+  /hooks
+    useIndexedDB.js        # IndexedDB logic (openDB, addDataToDB, getDataFromDB, clearDataFromDB)
+  /utils
+    api.js                 # Functions to fetch records from the Airtable API
+    constants.js           # Store constants like MAX_RECORDS_PER_BASE, CACHE_TIMEOUT_MS
+    helpers.js             # Helper functions like truncateText, toggleFilter
+index.js                   # The main entry point, includes the DataExplorer logic
+```
+
+## Installation
+
+1. Clone the repository.
+2. Install dependencies using:
+
+   ```
+   npm install
+   ```
+
+3. Run the extension:
+
+   ```
+   block run 
+   ```
+
+4. Deploy the Airtable block to use it with your Airtable base.
 
 ## License
 
