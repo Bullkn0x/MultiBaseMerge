@@ -67,63 +67,38 @@ initializeBlock(() => {
 
 The **Multi-Base Data Explorer** is an Airtable block extension that allows users to explore and analyze data from multiple archived bases simultaneously. It features advanced filtering options, real-time data merging, and interactive charts to help users visualize trends across their archived data.
 
+## Multi-Base Data Explorer Extension
+
+### Purpose
+
+The **Multi-Base Data Explorer** is an Airtable block extension that allows users to explore and analyze data from multiple archived bases. Users can filter, search, and visualize trends in their archived data through a unified interface.
+
+### Folder Structure
+
+The code for the Data Explorer is organized in the following structure:
+
+```bash
+/src
+  /components
+    ChartComponent.js      # The chart component logic
+    DataTable.js           # The table for displaying records
+    Filters.js             # Components handling filters and UI controls
+    Pagination.js          # The pagination controls
+  /hooks
+    useIndexedDB.js        # IndexedDB logic (openDB, addDataToDB, getDataFromDB, clearDataFromDB)
+  /utils
+    api.js                 # Functions to fetch records from the Airtable API
+    constants.js           # Store constants like MAX_RECORDS_PER_BASE, CACHE_TIMEOUT_MS
+    helpers.js             # Helper functions like truncateText, toggleFilter
+index.js                   # Main logic for Data Explorer
+```
+
 ### Detailed Breakdown
 
-The **Multi-Base Data Explorer** is a front-end interface built using Airtable Blocks SDK and React. It fetches records from multiple archive bases, merges them, and stores them in the browser’s IndexedDB for faster loading and reduced API calls.
-
-```javascript
-import {
-    initializeBlock,
-    useBase,
-    useRecords,
-    Box,
-    Heading,
-    Text,
-    Input,
-    Button,
-    Loader,
-    Select,
-    Link,
-} from '@airtable/blocks/ui';
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-
-const CACHE_TIMEOUT_MS = 60 * 60 * 1000; // 1 hour
-
-// IndexedDB Utilities
-const openDB = () => {
-    const request = indexedDB.open('AirtableCacheDB', 1);
-    request.onupgradeneeded = function (event) {
-        const db = event.target.result;
-        db.createObjectStore('records', { keyPath: 'id' });
-    };
-};
-
-// Data Explorer Main Function
-function DataExplorer() {
-    const base = useBase();
-    const records = useRecords(base.getTable('Archive Base Tracking'));
-    
-    const fetchRecordsFromArchive = useCallback(async (baseId, tableId) => {
-        // Fetch data using Airtable API
-    }, []);
-    
-    const loadAllRecords = useCallback(async (forceReload = false) => {
-        const cachedData = await getDataFromDB();
-        // Check if cache exists and is within timeout
-        // Fetch and merge data from multiple archive bases
-    }, []);
-    
-    return (
-        <Box>
-            <Heading>Multi-Base Data Explorer</Heading>
-            <Loader isLoading={isDataLoading} />
-            {/* Data filters and table display */}
-        </Box>
-    );
-}
-
-initializeBlock(() => <DataExplorer />);
-```
+- **Data Merging**: The extension pulls data from multiple archived bases using Airtable API calls. It merges the data and stores it in the browser's IndexedDB for quick access.
+- **IndexedDB Caching**: The script caches the retrieved data in IndexedDB, reducing API calls and improving performance. The cache is refreshed after a specified timeout.
+- **Filtering and Pagination**: Users can filter records based on multiple fields, such as Year, Publication, Status, and Date. Pagination controls allow easy navigation through large datasets.
+- **Charts**: The extension provides visual data analysis by generating charts that display records grouped by the user's chosen parameters (e.g., group by Year and stack by Status).
 
 ### Key Features
 
@@ -144,66 +119,6 @@ initializeBlock(() => <DataExplorer />);
   - Customize filtering and visualization parameters within the Data Explorer as needed.
 
 ---
-
-## Features
-
-### **Data Aggregation**: 
-Fetch and merge data from multiple Airtable bases and tables that share the same schema.
-
-### **Filtering**: 
-Apply various filters based on fields such as Year, Publication, and Status.
-
-### **Pagination**: 
-Navigate through large datasets with paginated views.
-
-### **Charts**: 
-Interactive charts to visualize data grouped and counted by fields like Year or Date.
-
-### **IndexedDB Caching**: 
-Cache Airtable data using IndexedDB for offline support and optimized performance.
-
-### **Table View**: 
-View records in a sortable, paginated table with links to the corresponding records in Airtable.
-
-### **Data Sync**: 
-Automatically refresh data based on a cache timeout or manual refresh triggers.
-
----
-
-## Folder Structure
-
-```
-/src
-  /components
-    ChartComponent.js      # The chart component logic
-    DataTable.js           # The table for displaying records
-    Filters.js             # Components handling filters and UI controls
-    Pagination.js          # The pagination controls
-  /hooks
-    useIndexedDB.js        # IndexedDB logic (openDB, addDataToDB, getDataFromDB, clearDataFromDB)
-  /utils
-    api.js                 # Functions to fetch records from the Airtable API
-    constants.js           # Store constants like MAX_RECORDS_PER_BASE, CACHE_TIMEOUT_MS
-    helpers.js             # Helper functions like truncateText, toggleFilter
-index.js                   # The main entry point, includes the DataExplorer logic
-```
-
-## Installation
-
-1. Clone the repository.
-2. Install dependencies using:
-
-   ```
-   npm install
-   ```
-
-3. Run the extension:
-
-   ```
-   block run 
-   ```
-
-4. Deploy the Airtable block to use it with your Airtable base.
 
 ## License
 
