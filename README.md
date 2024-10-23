@@ -46,8 +46,8 @@ As your Airtable base grows in size, it can become cumbersome to manage large da
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/airtable-archive-management.git
-    cd airtable-archive-management
+    git clone https://github.com/Bullkn0x/MultiBaseMerge.git
+    cd MultiBaseMerge
     ```
 
 2. Install the necessary dependencies (for the Data Explorer extension):
