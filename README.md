@@ -1,4 +1,4 @@
-# Airtable integration Engineer Project Multi-Base Archiver & Data Explorer
+# Airtable integration Engineer Project:  Multi-Base Archiver & Data Explorer
 
 This repository contains two main scripts designed for Airtable: the **Auto Archive Script** and the **Multi-Base Data Explorer** extension. These scripts work together to efficiently manage and explore large datasets by automatically archiving older records into new bases and enabling users to interact with and analyze these archives through a unified interface.
 
